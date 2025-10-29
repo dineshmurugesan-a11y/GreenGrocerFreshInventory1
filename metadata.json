@@ -1,0 +1,5 @@
+{
+  "name": "GreenGrocer Fresh Inventory Optimization",
+  "description": "A data-driven, AI-enabled web application to optimize fresh inventory management for GreenGrocer. It provides demand forecasting, automated order recommendations, and performance dashboards to reduce spoilage and stock-outs.",
+  "requestFramePermissions": []
+}
