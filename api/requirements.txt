@@ -1,0 +1,5 @@
+fastapi
+google-generativeai
+pydantic
+azure-functions
+asgiref
