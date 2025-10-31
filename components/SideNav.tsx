@@ -18,7 +18,8 @@ const NavItem: React.FC<{
         isActive ? 'bg-green-100 font-bold text-green-grocer-dark' : 'hover:bg-gray-100'
       }`}
     >
-      {React.cloneElement(icon, {
+      {/* FIX: Add generic type to React.cloneElement to specify that the cloned element accepts a className prop. */}
+      {React.cloneElement<{ className: string }>(icon, {
         className: `w-6 h-6 transition duration-75 ${
           isActive ? 'text-green-grocer-dark' : 'text-gray-500 group-hover:text-gray-900'
         }`,

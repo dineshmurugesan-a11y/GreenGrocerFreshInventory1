@@ -3,7 +3,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import StoreManagerView from './StoreManagerView';
-import { USERS } from '../constants';
+// FIX: Import STORES to be able to find the store for the test user.
+import { USERS, STORES } from '../constants';
 import * as geminiService from '../services/geminiService';
 import { Role } from '../types';
 
@@ -25,6 +26,8 @@ const mockSpoilageData = [
 ];
 
 const storeManagerUser = USERS.find(u => u.role === Role.StoreManager)!;
+// FIX: Find the store that corresponds to the store manager user.
+const mockStore = STORES.find(s => s.id === storeManagerUser.storeId)!;
 
 describe('StoreManagerView Component', () => {
   beforeEach(() => {
@@ -39,8 +42,10 @@ describe('StoreManagerView Component', () => {
   });
 
   it('renders loading state initially then displays recommendations', async () => {
-    render(<StoreManagerView user={storeManagerUser} />);
+    // FIX: Pass the 'store' prop instead of 'user'.
+    render(<StoreManagerView store={mockStore} />);
     
+    // This text comes from OrderRecommendationsTab, which is the default tab.
     expect(screen.getByText(/generating order recommendations/i)).toBeInTheDocument();
 
     await waitFor(() => {
@@ -50,7 +55,8 @@ describe('StoreManagerView Component', () => {
   });
 
   it('allows adjusting quantity and status changes to "Adjusted"', async () => {
-    render(<StoreManagerView user={storeManagerUser} />);
+    // FIX: Pass the 'store' prop instead of 'user'.
+    render(<StoreManagerView store={mockStore} />);
     
     await waitFor(() => {
       expect(screen.getByText('Organic Bananas')).toBeInTheDocument();
@@ -68,7 +74,8 @@ describe('StoreManagerView Component', () => {
   });
 
   it('allows approving a single recommendation', async () => {
-    render(<StoreManagerView user={storeManagerUser} />);
+    // FIX: Pass the 'store' prop instead of 'user'.
+    render(<StoreManagerView store={mockStore} />);
     
     await waitFor(() => {
       expect(screen.getByText('Organic Bananas')).toBeInTheDocument();
@@ -83,7 +90,8 @@ describe('StoreManagerView Component', () => {
   });
   
   it('allows selecting and approving multiple recommendations', async () => {
-    render(<StoreManagerView user={storeManagerUser} />);
+    // FIX: Pass the 'store' prop instead of 'user'.
+    render(<StoreManagerView store={mockStore} />);
     
     await waitFor(() => {
       expect(screen.getByText('Organic Bananas')).toBeInTheDocument();
@@ -104,7 +112,8 @@ describe('StoreManagerView Component', () => {
   });
   
   it('switches to order history tab and displays data', async () => {
-      render(<StoreManagerView user={storeManagerUser} />);
+      // FIX: Pass the 'store' prop instead of 'user'.
+      render(<StoreManagerView store={mockStore} />);
       
       await waitFor(() => {
         expect(screen.getByText('Organic Bananas')).toBeInTheDocument();
@@ -120,7 +129,8 @@ describe('StoreManagerView Component', () => {
   });
 
   it('filters recommendations by category', async () => {
-      render(<StoreManagerView user={storeManagerUser} />);
+      // FIX: Pass the 'store' prop instead of 'user'.
+      render(<StoreManagerView store={mockStore} />);
       
       await waitFor(() => {
         expect(screen.getByText('Organic Bananas')).toBeInTheDocument();
