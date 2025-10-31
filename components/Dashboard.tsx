@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import type { User, Store } from '../types';
 import { Role } from '../types';
 import SideNav from './SideNav';
-import { STORES } from '../constants';
 
 interface DashboardProps {
   user: User;
@@ -12,20 +11,22 @@ interface DashboardProps {
   setActiveView: (view: string) => void;
   viewingStore: Store | null;
   setViewingStore: (store: Store | null) => void;
+  stores: Store[];
 }
 
 const StoreSelector: React.FC<{
     user: User,
     viewingStore: Store | null,
     setViewingStore: (store: Store | null) => void;
-}> = ({ user, viewingStore, setViewingStore }) => {
+    stores: Store[];
+}> = ({ user, viewingStore, setViewingStore, stores }) => {
     const accessibleStores = useMemo(() => {
-        return STORES.filter(s => s.region === user.region);
-    }, [user.region]);
+        return stores.filter(s => s.region === user.region);
+    }, [user.region, stores]);
 
     const handleStoreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const storeId = parseInt(e.target.value, 10);
-        const newStore = STORES.find(s => s.id === storeId) || null;
+        const newStore = stores.find(s => s.id === storeId) || null;
         setViewingStore(newStore);
     };
 
@@ -53,7 +54,7 @@ const StoreSelector: React.FC<{
 };
 
 
-const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, children, activeView, setActiveView, viewingStore, setViewingStore }) => {
+const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, children, activeView, setActiveView, viewingStore, setViewingStore, stores }) => {
   const hasSidebar = user.role === Role.StoreManager;
 
   return (
@@ -68,7 +69,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, children, activeV
               <h1 className="text-xl font-bold text-green-grocer-900">GreenGrocer Inventory</h1>
             </div>
             <div className="flex items-center space-x-4">
-               <StoreSelector user={user} viewingStore={viewingStore} setViewingStore={setViewingStore} />
+               <StoreSelector user={user} viewingStore={viewingStore} setViewingStore={setViewingStore} stores={stores} />
               <div>
                 <div className="font-medium text-gray-800">{user.name}</div>
                 <div className="text-sm text-gray-500">{user.role}</div>

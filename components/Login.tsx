@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import type { User } from '../types';
-import { USERS } from '../constants';
 
 interface LoginProps {
   onLogin: (user: User) => void;
+  users: User[];
 }
 
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC<LoginProps> = ({ onLogin, users }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = USERS.find(u => u.email === email);
+    const user = users.find(u => u.email === email);
     // In a real app, password would be hashed and checked. Here we just check if user exists.
     if (user) {
       setError('');
@@ -78,9 +78,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
            <div className="mt-4 text-xs text-center text-gray-500">
                 <p>Use mock users for login:</p>
                 <div className="flex justify-center space-x-2 mt-2">
-                    <button onClick={() => prefillUser(USERS[0].email)} className="underline hover:text-green-grocer-dark">Store Mgr</button>
-                    <button onClick={() => prefillUser(USERS[1].email)} className="underline hover:text-green-grocer-dark">Regional Mgr</button>
-                    <button onClick={() => prefillUser(USERS[2].email)} className="underline hover:text-green-grocer-dark">Analyst</button>
+                    <button onClick={() => prefillUser(users[0].email)} className="underline hover:text-green-grocer-dark">Store Mgr</button>
+                    <button onClick={() => prefillUser(users[1].email)} className="underline hover:text-green-grocer-dark">Regional Mgr</button>
+                    <button onClick={() => prefillUser(users[2].email)} className="underline hover:text-green-grocer-dark">Analyst</button>
                 </div>
             </div>
         </div>

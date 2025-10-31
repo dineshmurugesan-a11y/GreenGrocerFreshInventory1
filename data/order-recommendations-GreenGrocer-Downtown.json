@@ -1,0 +1,6 @@
+
+[
+  { "sku": "PROD-001", "productName": "Organic Bananas", "currentInventory": 50, "forecastedQty": 30, "recommendedQty": 20, "targetDeliveryDate": "2024-08-01" },
+  { "sku": "PROD-002", "productName": "Avocados (Hass)", "currentInventory": 40, "forecastedQty": 25, "recommendedQty": 15, "targetDeliveryDate": "2024-08-01" },
+  { "sku": "DAIRY-001", "productName": "Organic Milk (Gallon)", "currentInventory": 20, "forecastedQty": 15, "recommendedQty": 10, "targetDeliveryDate": "2024-08-01" }
+]

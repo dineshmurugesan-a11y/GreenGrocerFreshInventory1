@@ -18,8 +18,8 @@ const NavItem: React.FC<{
         isActive ? 'bg-green-100 font-bold text-green-grocer-dark' : 'hover:bg-gray-100'
       }`}
     >
-      {/* FIX: Add generic type to React.cloneElement to specify that the cloned element accepts a className prop. */}
-      {React.cloneElement<{ className: string }>(icon, {
+      {/* FIX: The generic type passed to React.cloneElement was requiring a `className` prop, but the `icon` element doesn't have one initially. Making `className` optional (`?`) resolves the type error. */}
+      {React.cloneElement<{ className?: string }>(icon, {
         className: `w-6 h-6 transition duration-75 ${
           isActive ? 'text-green-grocer-dark' : 'text-gray-500 group-hover:text-gray-900'
         }`,

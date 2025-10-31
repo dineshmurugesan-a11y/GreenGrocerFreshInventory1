@@ -1,0 +1,6 @@
+
+[
+  { "sku": "PROD-002", "productName": "Avocados (Hass)", "quantity": 5, "reason": "Expired", "recordedDate": "2024-07-30" },
+  { "sku": "PROD-003", "productName": "Strawberries (1lb)", "quantity": 2, "reason": "Damaged", "recordedDate": "2024-07-29" },
+  { "sku": "BAKE-001", "productName": "Artisan Sourdough", "quantity": 1, "reason": "Overstock", "recordedDate": "2024-07-28" }
+]

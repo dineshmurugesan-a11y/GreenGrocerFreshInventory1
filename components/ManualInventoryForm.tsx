@@ -1,14 +1,18 @@
 import React from 'react';
-import { PILOT_PRODUCTS } from '../constants';
+import type { ProductSKU } from '../types';
 
-const ManualInventoryForm: React.FC = () => {
+interface ManualInventoryFormProps {
+    products: ProductSKU[];
+}
+
+const ManualInventoryForm: React.FC<ManualInventoryFormProps> = ({ products }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const sku = formData.get('sku');
         const count = formData.get('count');
-        const productName = PILOT_PRODUCTS.find(p => p.sku === sku)?.name || 'Selected product';
+        const productName = products.find(p => p.sku === sku)?.name || 'Selected product';
         alert(`Inventory for ${productName} (${sku}) updated to ${count}. Recommendations will be refreshed shortly.`);
         e.currentTarget.reset();
     };
@@ -21,7 +25,7 @@ const ManualInventoryForm: React.FC = () => {
                     <label htmlFor="manual-sku" className="block text-sm font-medium text-gray-700">Product</label>
                     <select id="manual-sku" name="sku" required className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-grocer focus:border-green-grocer sm:text-sm rounded-md">
                         <option value="">Select a product...</option>
-                        {PILOT_PRODUCTS.map(p => <option key={p.sku} value={p.sku}>{p.name}</option>)}
+                        {products.map(p => <option key={p.sku} value={p.sku}>{p.name}</option>)}
                     </select>
                 </div>
                 <div>

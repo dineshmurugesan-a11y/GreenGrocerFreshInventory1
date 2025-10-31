@@ -1,0 +1,6 @@
+
+[
+  { "sku": "PROD-003", "productName": "Strawberries (1lb)", "currentInventory": 60, "forecastedQty": 40, "recommendedQty": 20, "targetDeliveryDate": "2024-08-02" },
+  { "sku": "DAIRY-002", "productName": "Greek Yogurt (Plain)", "currentInventory": 30, "forecastedQty": 20, "recommendedQty": 10, "targetDeliveryDate": "2024-08-02" },
+  { "sku": "BAKE-001", "productName": "Artisan Sourdough", "currentInventory": 15, "forecastedQty": 10, "recommendedQty": 5, "targetDeliveryDate": "2024-08-02" }
+]

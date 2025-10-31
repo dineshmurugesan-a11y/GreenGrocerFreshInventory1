@@ -1,8 +1,7 @@
 // FIX: Create the RegionalManagerView component.
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import type { User, RegionalStorePerformance } from '../types';
+import type { User, RegionalStorePerformance, Store } from '../types';
 import { generateRegionalPerformanceData } from '../services/geminiService';
-import { STORES } from '../constants';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 
 const downloadCSV = (data: any[], filename: string) => {
@@ -28,14 +27,19 @@ const downloadCSV = (data: any[], filename: string) => {
   URL.revokeObjectURL(url);
 };
 
-const RegionalManagerView: React.FC<{ user: User }> = ({ user }) => {
+interface RegionalManagerViewProps {
+    user: User;
+    stores: Store[];
+}
+
+const RegionalManagerView: React.FC<RegionalManagerViewProps> = ({ user, stores }) => {
   const [performanceData, setPerformanceData] = useState<RegionalStorePerformance[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  const allRegions = useMemo(() => [...new Set(STORES.map(s => s.region))], []);
+  const allRegions = useMemo(() => [...new Set(stores.map(s => s.region))], [stores]);
   const [selectedRegion, setSelectedRegion] = useState(user.region || allRegions[0]);
   
-  const storesInRegion = useMemo(() => STORES.filter(s => s.region === selectedRegion), [selectedRegion]);
+  const storesInRegion = useMemo(() => stores.filter(s => s.region === selectedRegion), [selectedRegion, stores]);
   const [selectedStore, setSelectedStore] = useState('All');
 
 

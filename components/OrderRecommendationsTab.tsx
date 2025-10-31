@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import type { OrderRecommendation, Store } from '../types';
+import type { OrderRecommendation, Store, ProductSKU } from '../types';
 import { generateOrderRecommendations } from '../services/geminiService';
-import { PILOT_PRODUCTS, JUSTIFICATION_REASONS } from '../constants';
 import ManualInventoryForm from './ManualInventoryForm';
 
-const OrderRecommendationsTab: React.FC<{ store: Store }> = ({ store }) => {
+interface OrderRecommendationsTabProps {
+    store: Store;
+    products: ProductSKU[];
+    justificationReasons: string[];
+}
+
+const OrderRecommendationsTab: React.FC<OrderRecommendationsTabProps> = ({ store, products, justificationReasons }) => {
     const [recommendations, setRecommendations] = useState<OrderRecommendation[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -12,7 +17,7 @@ const OrderRecommendationsTab: React.FC<{ store: Store }> = ({ store }) => {
     const [statusFilter, setStatusFilter] = useState('All');
     const [categoryFilter, setCategoryFilter] = useState('All');
 
-    const categories = useMemo(() => ['All', ...new Set(PILOT_PRODUCTS.map(p => p.category))], []);
+    const categories = useMemo(() => ['All', ...new Set(products.map(p => p.category))], [products]);
 
     const fetchData = useCallback(async () => {
         if (!store) return;
@@ -103,12 +108,12 @@ const OrderRecommendationsTab: React.FC<{ store: Store }> = ({ store }) => {
     
     const filteredRecommendations = useMemo(() => {
         return recommendations.filter(rec => {
-            const product = PILOT_PRODUCTS.find(p => p.sku === rec.sku);
+            const product = products.find(p => p.sku === rec.sku);
             const statusMatch = statusFilter === 'All' || rec.status === statusFilter;
             const categoryMatch = categoryFilter === 'All' || (product && product.category === categoryFilter);
             return statusMatch && categoryMatch;
         });
-    }, [recommendations, statusFilter, categoryFilter]);
+    }, [recommendations, statusFilter, categoryFilter, products]);
     
     const isAllSelected = selectedSkus.size > 0 && filteredRecommendations.length > 0 && selectedSkus.size === filteredRecommendations.length;
 
@@ -149,7 +154,7 @@ const OrderRecommendationsTab: React.FC<{ store: Store }> = ({ store }) => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 <ManualInventoryForm />
+                 <ManualInventoryForm products={products} />
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -214,7 +219,7 @@ const OrderRecommendationsTab: React.FC<{ store: Store }> = ({ store }) => {
                                             className="w-40 block pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-green-grocer focus:border-green-grocer sm:text-sm rounded-md"
                                         >
                                             <option value="">Select a reason...</option>
-                                            {JUSTIFICATION_REASONS.map(reason => <option key={reason}>{reason}</option>)}
+                                            {justificationReasons.map(reason => <option key={reason}>{reason}</option>)}
                                         </select>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

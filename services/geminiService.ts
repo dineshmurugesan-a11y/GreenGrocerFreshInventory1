@@ -9,16 +9,18 @@ import type {
     CategoryPerformance 
 } from '../types';
 
-// IMPORTANT: This service now fetches data from the Python backend, which uses Gemini.
-// This allows for a more secure setup where API keys are not exposed on the frontend.
+// IMPORTANT: This service now fetches mock data from static JSON files.
+const API_BASE_URL = '/data'; 
 
-const API_BASE_URL = ''; // The backend will be served from the root
+const sanitizeForFilename = (name: string) => name.replace(/\s+/g, '-');
 
 const fetchData = async <T>(url: string, fallback: T): Promise<T> => {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            console.error(`Error fetching ${url}: ${response.statusText}`);
+            if (response.status !== 404) { // Don't log 404s as errors, they are expected for missing store files
+                 console.error(`Error fetching ${url}: ${response.statusText}`);
+            }
             return fallback;
         }
         return await response.json();
@@ -29,11 +31,12 @@ const fetchData = async <T>(url: string, fallback: T): Promise<T> => {
 };
 
 /**
- * Fetches AI-powered order recommendations for a specific store from the backend.
+ * Fetches AI-powered order recommendations for a specific store from a JSON file.
  */
 export const generateOrderRecommendations = async (storeName: string): Promise<OrderRecommendation[]> => {
+    const sanitizedStoreName = sanitizeForFilename(storeName);
     const rawRecommendations = await fetchData<Omit<OrderRecommendation, 'adjustedQty' | 'justification' | 'status'>[]>(
-        `${API_BASE_URL}/api/order-recommendations/${encodeURIComponent(storeName)}`, 
+        `${API_BASE_URL}/order-recommendations-${sanitizedStoreName}.json`, 
         []
     );
 
@@ -47,51 +50,55 @@ export const generateOrderRecommendations = async (storeName: string): Promise<O
 };
 
 /**
- * Fetches historical spoilage data for a specific store from the backend.
+ * Fetches historical spoilage data for a specific store from a JSON file.
  */
 export const generateSpoilageData = async (storeName: string): Promise<SpoilageRecord[]> => {
+    const sanitizedStoreName = sanitizeForFilename(storeName);
     return await fetchData<SpoilageRecord[]>(
-        `${API_BASE_URL}/api/spoilage-data/${encodeURIComponent(storeName)}`, 
+        `${API_BASE_URL}/spoilage-data-${sanitizedStoreName}.json`, 
         []
     );
 };
 
 /**
- * Fetches historical order data for a specific store from the backend.
+ * Fetches historical order data for a specific store from a JSON file.
  */
 export const generateOrderHistory = async (storeName: string): Promise<OrderHistory[]> => {
+    const sanitizedStoreName = sanitizeForFilename(storeName);
     return await fetchData<OrderHistory[]>(
-        `${API_BASE_URL}/api/order-history/${encodeURIComponent(storeName)}`, 
+        `${API_BASE_URL}/order-history-${sanitizedStoreName}.json`, 
         []
     );
 };
 
 /**
- * Fetches notifications for a store manager from the backend.
+ * Fetches notifications for a store manager from a JSON file.
  */
 export const generateNotifications = async (storeName: string): Promise<Notification[]> => {
+    const sanitizedStoreName = sanitizeForFilename(storeName);
     return await fetchData<Notification[]>(
-        `${API_BASE_URL}/api/notifications/${encodeURIComponent(storeName)}`, 
+        `${API_BASE_URL}/notifications-${sanitizedStoreName}.json`, 
         []
     );
 };
 
 /**
- * Fetches regional performance data for all stores in a region from the backend.
+ * Fetches regional performance data for all stores in a region from a JSON file.
  */
 export const generateRegionalPerformanceData = async (region: string): Promise<RegionalStorePerformance[]> => {
+    const sanitizedRegion = sanitizeForFilename(region);
     return await fetchData<RegionalStorePerformance[]>(
-        `${API_BASE_URL}/api/regional-performance/${encodeURIComponent(region)}`, 
+        `${API_BASE_URL}/regional-performance-${sanitizedRegion}.json`, 
         []
     );
 };
 
 /**
- * Fetches corporate-level dashboard data from the backend.
+ * Fetches corporate-level dashboard data from a JSON file.
  */
 export const generateCorporateData = async (): Promise<{ kpis: Kpi[]; performance: CategoryPerformance[] }> => {
     return await fetchData<{ kpis: Kpi[]; performance: CategoryPerformance[] }>(
-        `${API_BASE_URL}/api/corporate-dashboard`, 
+        `${API_BASE_URL}/corporate-dashboard.json`, 
         { kpis: [], performance: [] }
     );
 };

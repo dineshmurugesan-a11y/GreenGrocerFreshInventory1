@@ -1,0 +1,14 @@
+
+{
+  "kpis": [
+    { "name": "Overall Spoilage Rate", "value": "3.2%", "trend": "down", "change": "-0.5% vs last period" },
+    { "name": "Order Accuracy", "value": "96.1%", "trend": "up", "change": "+1.2% vs last period" },
+    { "name": "Inventory Turnover", "value": "5.8", "trend": "up", "change": "+0.3 vs last period" },
+    { "name": "Pilot Program ROI", "value": "15%", "trend": "up", "change": "+2% vs projection" }
+  ],
+  "performance": [
+    { "category": "Produce", "sales": 450320, "spoilage": 14410.24 },
+    { "category": "Dairy", "sales": 280150, "spoilage": 6723.60 },
+    { "category": "Bakery", "sales": 150680, "spoilage": 4219.04 }
+  ]
+}

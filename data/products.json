@@ -1,0 +1,9 @@
+
+[
+  { "sku": "PROD-001", "name": "Organic Bananas", "category": "Produce", "unitOfMeasure": "lb" },
+  { "sku": "PROD-002", "name": "Avocados (Hass)", "category": "Produce", "unitOfMeasure": "each" },
+  { "sku": "PROD-003", "name": "Strawberries (1lb)", "category": "Produce", "unitOfMeasure": "clamshell" },
+  { "sku": "DAIRY-001", "name": "Organic Milk (Gallon)", "category": "Dairy", "unitOfMeasure": "gallon" },
+  { "sku": "DAIRY-002", "name": "Greek Yogurt (Plain)", "category": "Dairy", "unitOfMeasure": "tub" },
+  { "sku": "BAKE-001", "name": "Artisan Sourdough", "category": "Bakery", "unitOfMeasure": "loaf" }
+]

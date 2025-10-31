@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import type { Store } from '../types';
+import type { Store, ProductSKU } from '../types';
 import OrderRecommendationsTab from './OrderRecommendationsTab';
 import OrderHistoryTab from './OrderHistoryTab';
 
-const StoreManagerView: React.FC<{ store: Store }> = ({ store }) => {
+interface StoreManagerViewProps {
+  store: Store;
+  products: ProductSKU[];
+  justificationReasons: string[];
+}
+
+const StoreManagerView: React.FC<StoreManagerViewProps> = ({ store, products, justificationReasons }) => {
   const [activeTab, setActiveTab] = useState<'recommendations' | 'history'>('recommendations');
 
   return (
@@ -36,7 +42,7 @@ const StoreManagerView: React.FC<{ store: Store }> = ({ store }) => {
       </div>
 
       <div>
-        {activeTab === 'recommendations' && <OrderRecommendationsTab store={store} />}
+        {activeTab === 'recommendations' && <OrderRecommendationsTab store={store} products={products} justificationReasons={justificationReasons} />}
         {activeTab === 'history' && <OrderHistoryTab store={store} />}
       </div>
     </div>

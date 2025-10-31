@@ -1,0 +1,5 @@
+
+[
+  { "storeName": "GreenGrocer Downtown", "totalSpoilage": 1450.75, "orderAccuracy": 95.5, "inventoryTurnover": 4.2 },
+  { "storeName": "GreenGrocer Suburbia", "totalSpoilage": 980.50, "orderAccuracy": 97.2, "inventoryTurnover": 5.1 }
+]

@@ -1,0 +1,6 @@
+
+[
+  { "id": "1", "type": "Alert", "title": "Low Stock: Organic Bananas", "message": "Inventory for Organic Bananas is below the safety threshold. Review pending order.", "date": "2024-07-31T10:00:00Z", "read": false },
+  { "id": "2", "type": "Info", "title": "New Promotion Starting", "message": "A new 'Berry Bonanza' promotion starts next week affecting strawberry demand.", "date": "2024-07-30T14:30:00Z", "read": false },
+  { "id": "3", "type": "Reminder", "title": "Approve Orders", "message": "Please review and approve the pending orders for tomorrow's delivery.", "date": "2024-07-29T09:00:00Z", "read": true }
+]

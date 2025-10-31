@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import type { SpoilageRecord, Store } from '../types';
+import type { SpoilageRecord, Store, ProductSKU } from '../types';
 import { generateSpoilageData } from '../services/geminiService';
-import { PILOT_PRODUCTS } from '../constants';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
-const SpoilageAnalysis: React.FC<{ store: Store }> = ({ store }) => {
+interface SpoilageAnalysisProps {
+  store: Store;
+  products: ProductSKU[];
+}
+
+const SpoilageAnalysis: React.FC<SpoilageAnalysisProps> = ({ store, products }) => {
   const [spoilageData, setSpoilageData] = useState<SpoilageRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +46,7 @@ const SpoilageAnalysis: React.FC<{ store: Store }> = ({ store }) => {
     const quantity = parseInt(formData.get('quantity') as string);
     const reason = formData.get('reason') as SpoilageRecord['reason'];
     const recordedDate = formData.get('recordedDate') as string;
-    const productName = PILOT_PRODUCTS.find(p => p.sku === sku)?.name || 'Unknown Product';
+    const productName = products.find(p => p.sku === sku)?.name || 'Unknown Product';
     
     const newRecord: SpoilageRecord = {
         sku,
@@ -92,7 +96,7 @@ const SpoilageAnalysis: React.FC<{ store: Store }> = ({ store }) => {
               <label htmlFor="sku" className="block text-sm font-medium text-gray-700">Product</label>
               <select id="sku" name="sku" required className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-grocer focus:border-green-grocer sm:text-sm rounded-md">
                 <option value="">Select a product...</option>
-                {PILOT_PRODUCTS.map(p => <option key={p.sku} value={p.sku}>{p.name}</option>)}
+                {products.map(p => <option key={p.sku} value={p.sku}>{p.name}</option>)}
               </select>
             </div>
              <div>

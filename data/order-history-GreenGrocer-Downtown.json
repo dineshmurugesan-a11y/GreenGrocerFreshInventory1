@@ -1,0 +1,5 @@
+
+[
+  { "sku": "PROD-001", "productName": "Organic Bananas", "orderDate": "2024-07-25", "quantityOrdered": 25, "currentInventory": 50, "shelfLifeDays": 5 },
+  { "sku": "DAIRY-001", "productName": "Organic Milk (Gallon)", "orderDate": "2024-07-25", "quantityOrdered": 12, "currentInventory": 20, "shelfLifeDays": 10 }
+]

@@ -1,0 +1,5 @@
+
+[
+  { "storeName": "GreenGrocer Westside", "totalSpoilage": 1230.15, "orderAccuracy": 96.1, "inventoryTurnover": 4.8 },
+  { "storeName": "GreenGrocer East Bay", "totalSpoilage": 1105.90, "orderAccuracy": 94.8, "inventoryTurnover": 4.5 }
+]

@@ -1,0 +1,6 @@
+
+[
+  { "id": 1, "name": "Alice Manager", "email": "storemgr@greengrocer.com", "role": "Store Manager", "storeId": 101, "region": "North" },
+  { "id": 2, "name": "Bob Regional", "email": "regionalmgr@greengrocer.com", "role": "Regional Manager", "region": "North" },
+  { "id": 3, "name": "Charlie Analyst", "email": "analyst@greengrocer.com", "role": "Corporate Analyst" }
+]

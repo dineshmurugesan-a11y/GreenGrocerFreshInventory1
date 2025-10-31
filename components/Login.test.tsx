@@ -3,11 +3,17 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Login from './Login';
-import { USERS } from '../constants';
+import { Role, type User } from '../types';
+
+const USERS: User[] = [
+  { id: 1, name: 'Alice Manager', email: 'storemgr@greengrocer.com', role: Role.StoreManager, storeId: 101, region: 'North' },
+  { id: 2, name: 'Bob Regional', email: 'regionalmgr@greengrocer.com', role: Role.RegionalManager, region: 'North' },
+  { id: 3, name: 'Charlie Analyst', email: 'analyst@greengrocer.com', role: Role.CorporateAnalyst },
+];
 
 describe('Login Component', () => {
   it('renders the login form', () => {
-    render(<Login onLogin={jest.fn()} />);
+    render(<Login onLogin={jest.fn()} users={USERS} />);
     expect(screen.getByRole('heading', { name: /greengrocer/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
@@ -15,7 +21,7 @@ describe('Login Component', () => {
   });
 
   it('allows user to type into email and password fields', () => {
-    render(<Login onLogin={jest.fn()} />);
+    render(<Login onLogin={jest.fn()} users={USERS} />);
     const emailInput = screen.getByLabelText(/email address/i) as HTMLInputElement;
     const passwordInput = screen.getByLabelText(/password/i) as HTMLInputElement;
 
@@ -28,7 +34,7 @@ describe('Login Component', () => {
 
   it('calls onLogin with user data for valid credentials', () => {
     const handleLogin = jest.fn();
-    render(<Login onLogin={handleLogin} />);
+    render(<Login onLogin={handleLogin} users={USERS} />);
     const validUser = USERS[0];
 
     fireEvent.change(screen.getByLabelText(/email address/i), { target: { value: validUser.email } });
@@ -40,7 +46,7 @@ describe('Login Component', () => {
   });
 
   it('shows an error message for invalid credentials', () => {
-    render(<Login onLogin={jest.fn()} />);
+    render(<Login onLogin={jest.fn()} users={USERS} />);
     
     fireEvent.change(screen.getByLabelText(/email address/i), { target: { value: 'wrong@user.com' } });
     fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'wrongpassword' } });
@@ -50,7 +56,7 @@ describe('Login Component', () => {
   });
 
   it('prefills fields when clicking on a mock user button', async () => {
-      render(<Login onLogin={jest.fn()} />);
+      render(<Login onLogin={jest.fn()} users={USERS} />);
       const emailInput = screen.getByLabelText(/email address/i) as HTMLInputElement;
       const passwordInput = screen.getByLabelText(/password/i) as HTMLInputElement;
       

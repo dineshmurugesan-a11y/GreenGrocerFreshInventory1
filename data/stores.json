@@ -1,0 +1,10 @@
+
+[
+  { "id": 101, "name": "GreenGrocer Downtown", "region": "North" },
+  { "id": 102, "name": "GreenGrocer Suburbia", "region": "North" },
+  { "id": 201, "name": "GreenGrocer Westside", "region": "West" },
+  { "id": 202, "name": "GreenGrocer East Bay", "region": "West" },
+  { "id": 301, "name": "GreenGrocer South Central", "region": "South" },
+  { "id": 401, "name": "GreenGrocer East Village", "region": "East" },
+  { "id": 402, "name": "GreenGrocer Midtown", "region": "East" }
+]
