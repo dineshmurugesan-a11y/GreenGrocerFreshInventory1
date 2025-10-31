@@ -51,7 +51,8 @@ jobs:
         with:
           app-name: 'greengrocerfreshinventory'
           slot-name: 'Production'
-          package: .
+          package: ./dist
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2E39E3F47B4D4D10AC590E9E61E839AE }}
+
 
